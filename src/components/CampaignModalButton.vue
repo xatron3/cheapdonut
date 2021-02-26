@@ -6,7 +6,7 @@
     v-on:click="toggleModal"
   >
     <div class="flex items-center relative cursor-pointer whitespace-nowrap">
-      Create campaign
+      Beg for free cTH
     </div>
   </a>
   <!-- End button -->
