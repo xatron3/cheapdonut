@@ -10,14 +10,12 @@
     </div>
   </div>
   <Footer />
-  <Modal />
 </template>
 
 <script>
 import Footer from "./components/layout/Footer.vue";
 import Header from "./components/layout/Header.vue";
 import Campaign from "./components/Campaign.vue";
-import Modal from "./components/modal/Modal.vue";
 
 import web3 from "./lib/web3.js";
 import crowdFundingInstance from "./lib/CrowdFundingInstance.js";
@@ -29,7 +27,6 @@ export default {
     Footer,
     Header,
     Campaign,
-    Modal,
   },
   data() {
     return {

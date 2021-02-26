@@ -42,7 +42,7 @@
       class="border-gray-200 dark:border-gray-600 border border-b-0 my-1"
     ></div>
 
-    <FundModalButton />
+    <FundModalButton :campaignIndex="index" :campaignTitle="data.title" />
   </div>
 </template>
 
