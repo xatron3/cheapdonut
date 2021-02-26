@@ -18,9 +18,9 @@
       </svg>
       <span
         >Made by
-        <a href="#" target="_new" class="text-teal-600 font-semibold">xatron</a>
+        <a href="https://github.com/xatron3" target="_new" class="text-teal-1000 font-semibold">xatron</a>
         &
-        <a href="#" target="_new" class="text-teal-600 font-semibold"
+        <a href="https://github.com/kanedaaaa" target="_new" class="text-teal-1000 font-semibold"
           >kaneda</a
         ></span
       >

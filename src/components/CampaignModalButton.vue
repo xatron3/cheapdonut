@@ -1,7 +1,7 @@
 <template>
   <!-- Button -->
   <a
-    class="inline-block py-2 px-3 hover:bg-gray-200 rounded-full"
+    class="inline-block py-2 px-3 bg-gray-200 hover:bg-pink-500 rounded-full"
     href="#"
     v-on:click="toggleModal"
   >
@@ -13,7 +13,7 @@
 
   <Modal
     :name="'create-campaign'"
-    :title="'Create a funding campaign'"
+    :title="'Create a campaign to beg for cTH'"
     :content="'campaign'"
   />
 </template>
