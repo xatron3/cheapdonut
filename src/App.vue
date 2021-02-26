@@ -1,4 +1,5 @@
 <template>
+
   <Header />
   <div class="max-w-4xl m-auto p-10">
     <div
@@ -94,6 +95,11 @@ export default {
 
 <style>
 body {
-  background: #f3f3f3;
+  background-image: url('https://wallpaperaccess.com/full/1636229.jpg');
+  background-size: cover;
+  background-position: center;
+
+  backdrop-filter: blur(4px);
+
 }
 </style>

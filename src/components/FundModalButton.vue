@@ -1,6 +1,6 @@
 <template>
   <button
-    class="modal-close px-4 bg-green-600 -500 p-2 rounded-lg text-white hover:bg-green-500 float-right"
+    class="modal-close px-4 bg-gray-500 -500 p-2 rounded-lg text-white hover:bg-pink-500 float-right"
     v-on:click="toggleModal()"
   >
     Donut

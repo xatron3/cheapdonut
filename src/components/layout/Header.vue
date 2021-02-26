@@ -1,7 +1,7 @@
 <template>
   <!-- component -->
   <nav
-    class=" bg-white w-full flex relative justify-between items-center mx-auto px-8 h-20"
+    class="w-full flex relative justify-between items-center mx-auto px-8 h-20"
   >
     <!-- logo -->
     <div class="inline-flex">
