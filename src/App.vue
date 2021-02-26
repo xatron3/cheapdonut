@@ -15,7 +15,7 @@ import Campaign from "./components/Campaign.vue";
 
 import web3 from "./lib/web3.js";
 import crowdFundingInstance from "./lib/CrowdFundingInstance.js";
-// import projectInstance from "./lib/ProjectInstance.js";
+import projectInstance from "./lib/ProjectInstance.js";
 
 export default {
   name: "App",
@@ -42,24 +42,34 @@ export default {
         .returnAllProjects()
         .call()
         .then((projects) => {
-          console.log(projects);
+          projects.forEach((projectAddress) => {
+            const projectInst = projectInstance(projectAddress);
+
+            projectInst.methods
+              .getDetails()
+              .call()
+              .then((projectData) => {
+                const projectInfo = projectData;
+                console.log(projectInfo);
+              });
+          });
         });
     },
-    startProject() {
-      crowdFundingInstance.methods
-        .startProject(
-          this.newProject.title,
-          this.newProject.description,
-          this.newProject.duration,
-          web3.utils.toWei(this.newProject.amountGoal, "ether")
-        )
-        .send({
-          from: this.account,
-        })
-        .then((res) => {
-          console.log(res);
-        });
-    },
+    // startProject() {
+    //   crowdFundingInstance.methods
+    //     .startProject(
+    //       this.newProject.title,
+    //       this.newProject.description,
+    //       this.newProject.duration,
+    //       web3.utils.toWei(this.newProject.amountGoal, "ether")
+    //     )
+    //     .send({
+    //       from: this.account,
+    //     })
+    //     .then((res) => {
+    //       console.log(res);
+    //     });
+    // },
   },
 };
 </script>
