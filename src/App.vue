@@ -1,17 +1,23 @@
 <template>
   <Header />
-  <div class="max-w-4xl m-auto p-10 flex items-center justify-center flex-wrap">
-    <Campaign />
-    <Campaign />
-    <Campaign />
+  <div class="max-w-4xl m-auto p-10">
+    <div
+      v-for="(project, index) in projects"
+      :key="index"
+      class="w-full flex items-center justify-center flex-wrap"
+    >
+      <Campaign :data="project" :index="index" />
+    </div>
   </div>
   <Footer />
+  <Modal />
 </template>
 
 <script>
 import Footer from "./components/layout/Footer.vue";
 import Header from "./components/layout/Header.vue";
 import Campaign from "./components/Campaign.vue";
+import Modal from "./components/modal/Modal.vue";
 
 import web3 from "./lib/web3.js";
 import crowdFundingInstance from "./lib/CrowdFundingInstance.js";
@@ -23,11 +29,13 @@ export default {
     Footer,
     Header,
     Campaign,
+    Modal,
   },
   data() {
     return {
-      account: [],
+      account: null,
       newProject: {},
+      projects: [],
     };
   },
   mounted() {
@@ -49,27 +57,40 @@ export default {
               .getDetails()
               .call()
               .then((projectData) => {
-                const projectInfo = projectData;
-                console.log(projectInfo);
+                var deadline = new Date(projectData.deadline * 1000);
+                var creationDate = new Date(projectData.creationDate * 1000);
+
+                var cleanData = {
+                  title: projectData.projectTitle,
+                  description: projectData.projectDesc,
+                  projectStarterAdress: projectData.projectStarter,
+                  currentAmount: projectData.currentAmount,
+                  goalAmount: projectData.goalAmount,
+                  endDate: deadline,
+                  createdAt: creationDate,
+                };
+
+                this.projects.push(cleanData);
               });
           });
+        })
+        .catch(console.log);
+    },
+    startProject() {
+      crowdFundingInstance.methods
+        .startProject(
+          "testTitle",
+          "testDes",
+          10,
+          web3.utils.toWei("1000", "ether")
+        )
+        .send({
+          from: this.account,
+        })
+        .then((res) => {
+          console.log(res);
         });
     },
-    // startProject() {
-    //   crowdFundingInstance.methods
-    //     .startProject(
-    //       this.newProject.title,
-    //       this.newProject.description,
-    //       this.newProject.duration,
-    //       web3.utils.toWei(this.newProject.amountGoal, "ether")
-    //     )
-    //     .send({
-    //       from: this.account,
-    //     })
-    //     .then((res) => {
-    //       console.log(res);
-    //     });
-    // },
   },
 };
 </script>

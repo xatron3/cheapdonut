@@ -1,10 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.7.4;
-import './utils/SafeMath.sol';
-
+import "./utils/SafeMath.sol";
 
 contract Crowdfunding {
-
     using SafeMath for uint256;
 
     Project[] private projects;
@@ -14,6 +12,7 @@ contract Crowdfunding {
         address projectStarter,
         string projectTitle,
         string projectDesc,
+        uint256 createdAt,
         uint256 deadline,
         uint256 goalAmount
     );
@@ -21,11 +20,21 @@ contract Crowdfunding {
     function startProject(
         string calldata title,
         string calldata description,
-        uint durationInDays,
-        uint amountToRaise
+        uint256 durationInDays,
+        uint256 amountToRaise
     ) external {
-        uint raiseUntil = block.timestamp.add(durationInDays.mul(1 days));
-        Project newProject = new Project(msg.sender, title, description, raiseUntil, amountToRaise);
+        uint256 raiseUntil = block.timestamp.add(durationInDays.mul(1 days));
+        uint256 creationDate = block.timestamp;
+
+        Project newProject =
+            new Project(
+                msg.sender,
+                title,
+                description,
+                raiseUntil,
+                creationDate,
+                amountToRaise
+            );
         projects.push(newProject);
         emit ProjectStarted(
             address(newProject),
@@ -33,74 +42,68 @@ contract Crowdfunding {
             title,
             description,
             raiseUntil,
+            creationDate,
             amountToRaise
         );
-    }                                                                                                                                   
+    }
 
-    function returnAllProjects() external view returns(Project[] memory){
+    function returnAllProjects() external view returns (Project[] memory) {
         return projects;
     }
 }
 
-
 contract Project {
     using SafeMath for uint256;
-    
 
-    enum State {
-        Fundraising,
-        Expired,
-        Successful
-    }
-
+    enum State {Fundraising, Expired, Successful}
 
     address payable public creator;
-    uint public amountGoal; 
-    uint public completeAt;
+    uint256 public amountGoal;
+    uint256 public completeAt;
     uint256 public currentBalance;
-    uint public raiseBy;
+    uint256 public raiseBy;
+    uint256 public createdAt;
     string public title;
     string public description;
     State public state = State.Fundraising;
-    mapping (address => uint) public contributions;
+    mapping(address => uint256) public contributions;
 
-   
-    event FundingReceived(address contributor, uint amount, uint currentTotal);
-   
+    event FundingReceived(
+        address contributor,
+        uint256 amount,
+        uint256 currentTotal
+    );
+
     event CreatorPaid(address recipient);
 
-  
     modifier inState(State _state) {
         require(state == _state);
         _;
     }
 
-  
     modifier isCreator() {
         require(msg.sender == creator);
         _;
     }
 
-    constructor
-    (
+    constructor(
         address payable projectStarter,
         string memory projectTitle,
         string memory projectDesc,
-        uint fundRaisingDeadline,
-        uint goalAmount
-    ) public {
-    
-
+        uint256 fundRaisingDeadline,
+        uint256 creationDate,
+        uint256 goalAmount
+    ) {
         creator = projectStarter;
         title = projectTitle;
         description = projectDesc;
         amountGoal = goalAmount;
         raiseBy = fundRaisingDeadline;
+        createdAt = creationDate;
         currentBalance = 0;
     }
 
-  
-    function contribute() external inState(State.Fundraising) payable {
+    function contribute() external payable inState(State.Fundraising) {
         require(msg.sender != creator);
         contributions[msg.sender] = contributions[msg.sender].add(msg.value);
         currentBalance = currentBalance.add(msg.value);
@@ -108,18 +111,16 @@ contract Project {
         checkIfFundingCompleteOrExpired();
     }
 
-  
     function checkIfFundingCompleteOrExpired() public {
         if (currentBalance >= amountGoal) {
             state = State.Successful;
             payOut();
-        } else if (block.timestamp > raiseBy)  {
+        } else if (block.timestamp > raiseBy) {
             state = State.Expired;
         }
         completeAt = block.timestamp;
     }
 
-  
     function payOut() internal inState(State.Successful) returns (bool) {
         uint256 totalRaised = currentBalance;
         currentBalance = 0;
@@ -135,11 +136,10 @@ contract Project {
         return false;
     }
 
-
     function getRefund() public inState(State.Expired) returns (bool) {
         require(contributions[msg.sender] > 0);
 
-        uint amountToRefund = contributions[msg.sender];
+        uint256 amountToRefund = contributions[msg.sender];
         contributions[msg.sender] = 0;
 
         if (!msg.sender.send(amountToRefund)) {
@@ -152,22 +152,27 @@ contract Project {
         return true;
     }
 
-    function getDetails() public view returns 
-    (
-        address payable projectStarter,
-        string memory projectTitle,
-        string memory projectDesc,
-        uint256 deadline,
-        State currentState,
-        uint256 currentAmount,
-        uint256 goalAmount
-    ) {
+    function getDetails()
+        public
+        view
+        returns (
+            address payable projectStarter,
+            string memory projectTitle,
+            string memory projectDesc,
+            uint256 deadline,
+            State currentState,
+            uint256 currentAmount,
+            uint256 creationDate,
+            uint256 goalAmount
+        )
+    {
         projectStarter = creator;
         projectTitle = title;
         projectDesc = description;
         deadline = raiseBy;
         currentState = state;
         currentAmount = currentBalance;
+        creationDate = createdAt;
         goalAmount = amountGoal;
     }
 }
