@@ -1,269 +1,269 @@
 /* eslint-disable */
-import web3 from './web3';
+import web3 from "./web3";
 
 const abi = [
   {
-    "inputs": [
+    inputs: [
       {
-        "internalType": "address payable",
-        "name": "projectStarter",
-        "type": "address"
+        internalType: "address payable",
+        name: "projectStarter",
+        type: "address",
       },
       {
-        "internalType": "string",
-        "name": "projectTitle",
-        "type": "string"
+        internalType: "string",
+        name: "projectTitle",
+        type: "string",
       },
       {
-        "internalType": "string",
-        "name": "projectDesc",
-        "type": "string"
+        internalType: "string",
+        name: "projectDesc",
+        type: "string",
       },
       {
-        "internalType": "uint256",
-        "name": "fundRaisingDeadline",
-        "type": "uint256"
+        internalType: "uint256",
+        name: "fundRaisingDeadline",
+        type: "uint256",
       },
       {
-        "internalType": "uint256",
-        "name": "goalAmount",
-        "type": "uint256"
-      }
+        internalType: "uint256",
+        name: "goalAmount",
+        type: "uint256",
+      },
     ],
-    "stateMutability": "nonpayable",
-    "type": "constructor"
+    stateMutability: "nonpayable",
+    type: "constructor",
   },
   {
-    "anonymous": false,
-    "inputs": [
+    anonymous: false,
+    inputs: [
       {
-        "indexed": false,
-        "internalType": "address",
-        "name": "recipient",
-        "type": "address"
-      }
+        indexed: false,
+        internalType: "address",
+        name: "recipient",
+        type: "address",
+      },
     ],
-    "name": "CreatorPaid",
-    "type": "event"
+    name: "CreatorPaid",
+    type: "event",
   },
   {
-    "anonymous": false,
-    "inputs": [
+    anonymous: false,
+    inputs: [
       {
-        "indexed": false,
-        "internalType": "address",
-        "name": "contributor",
-        "type": "address"
+        indexed: false,
+        internalType: "address",
+        name: "contributor",
+        type: "address",
       },
       {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "amount",
-        "type": "uint256"
+        indexed: false,
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256",
       },
       {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "currentTotal",
-        "type": "uint256"
-      }
+        indexed: false,
+        internalType: "uint256",
+        name: "currentTotal",
+        type: "uint256",
+      },
     ],
-    "name": "FundingReceived",
-    "type": "event"
+    name: "FundingReceived",
+    type: "event",
   },
   {
-    "inputs": [],
-    "name": "amountGoal",
-    "outputs": [
+    inputs: [],
+    name: "amountGoal",
+    outputs: [
       {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
     ],
-    "stateMutability": "view",
-    "type": "function"
+    stateMutability: "view",
+    type: "function",
   },
   {
-    "inputs": [],
-    "name": "checkIfFundingCompleteOrExpired",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
+    inputs: [],
+    name: "checkIfFundingCompleteOrExpired",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
   },
   {
-    "inputs": [],
-    "name": "completeAt",
-    "outputs": [
+    inputs: [],
+    name: "completeAt",
+    outputs: [
       {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
     ],
-    "stateMutability": "view",
-    "type": "function"
+    stateMutability: "view",
+    type: "function",
   },
   {
-    "inputs": [],
-    "name": "contribute",
-    "outputs": [],
-    "stateMutability": "payable",
-    "type": "function"
+    inputs: [],
+    name: "contribute",
+    outputs: [],
+    stateMutability: "payable",
+    type: "function",
   },
   {
-    "inputs": [
+    inputs: [
       {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
     ],
-    "name": "contributions",
-    "outputs": [
+    name: "contributions",
+    outputs: [
       {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
     ],
-    "stateMutability": "view",
-    "type": "function"
+    stateMutability: "view",
+    type: "function",
   },
   {
-    "inputs": [],
-    "name": "creator",
-    "outputs": [
+    inputs: [],
+    name: "creator",
+    outputs: [
       {
-        "internalType": "address payable",
-        "name": "",
-        "type": "address"
-      }
+        internalType: "address payable",
+        name: "",
+        type: "address",
+      },
     ],
-    "stateMutability": "view",
-    "type": "function"
+    stateMutability: "view",
+    type: "function",
   },
   {
-    "inputs": [],
-    "name": "currentBalance",
-    "outputs": [
+    inputs: [],
+    name: "currentBalance",
+    outputs: [
       {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
     ],
-    "stateMutability": "view",
-    "type": "function"
+    stateMutability: "view",
+    type: "function",
   },
   {
-    "inputs": [],
-    "name": "description",
-    "outputs": [
+    inputs: [],
+    name: "description",
+    outputs: [
       {
-        "internalType": "string",
-        "name": "",
-        "type": "string"
-      }
+        internalType: "string",
+        name: "",
+        type: "string",
+      },
     ],
-    "stateMutability": "view",
-    "type": "function"
+    stateMutability: "view",
+    type: "function",
   },
   {
-    "inputs": [],
-    "name": "getDetails",
-    "outputs": [
+    inputs: [],
+    name: "getDetails",
+    outputs: [
       {
-        "internalType": "address payable",
-        "name": "projectStarter",
-        "type": "address"
+        internalType: "address payable",
+        name: "projectStarter",
+        type: "address",
       },
       {
-        "internalType": "string",
-        "name": "projectTitle",
-        "type": "string"
+        internalType: "string",
+        name: "projectTitle",
+        type: "string",
       },
       {
-        "internalType": "string",
-        "name": "projectDesc",
-        "type": "string"
+        internalType: "string",
+        name: "projectDesc",
+        type: "string",
       },
       {
-        "internalType": "uint256",
-        "name": "deadline",
-        "type": "uint256"
+        internalType: "uint256",
+        name: "deadline",
+        type: "uint256",
       },
       {
-        "internalType": "enum Project.State",
-        "name": "currentState",
-        "type": "uint8"
+        internalType: "enum Project.State",
+        name: "currentState",
+        type: "uint8",
       },
       {
-        "internalType": "uint256",
-        "name": "currentAmount",
-        "type": "uint256"
+        internalType: "uint256",
+        name: "currentAmount",
+        type: "uint256",
       },
       {
-        "internalType": "uint256",
-        "name": "goalAmount",
-        "type": "uint256"
-      }
+        internalType: "uint256",
+        name: "goalAmount",
+        type: "uint256",
+      },
     ],
-    "stateMutability": "view",
-    "type": "function"
+    stateMutability: "view",
+    type: "function",
   },
   {
-    "inputs": [],
-    "name": "getRefund",
-    "outputs": [
+    inputs: [],
+    name: "getRefund",
+    outputs: [
       {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
-      }
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
     ],
-    "stateMutability": "nonpayable",
-    "type": "function"
+    stateMutability: "nonpayable",
+    type: "function",
   },
   {
-    "inputs": [],
-    "name": "raiseBy",
-    "outputs": [
+    inputs: [],
+    name: "raiseBy",
+    outputs: [
       {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
     ],
-    "stateMutability": "view",
-    "type": "function"
+    stateMutability: "view",
+    type: "function",
   },
   {
-    "inputs": [],
-    "name": "state",
-    "outputs": [
+    inputs: [],
+    name: "state",
+    outputs: [
       {
-        "internalType": "enum Project.State",
-        "name": "",
-        "type": "uint8"
-      }
+        internalType: "enum Project.State",
+        name: "",
+        type: "uint8",
+      },
     ],
-    "stateMutability": "view",
-    "type": "function"
+    stateMutability: "view",
+    type: "function",
   },
   {
-    "inputs": [],
-    "name": "title",
-    "outputs": [
+    inputs: [],
+    name: "title",
+    outputs: [
       {
-        "internalType": "string",
-        "name": "",
-        "type": "string"
-      }
+        internalType: "string",
+        name: "",
+        type: "string",
+      },
     ],
-    "stateMutability": "view",
-    "type": "function"
-  }
+    stateMutability: "view",
+    type: "function",
+  },
 ];
 
 export default (address) => {
