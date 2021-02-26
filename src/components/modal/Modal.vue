@@ -1,6 +1,7 @@
 <template>
   <div
-    class="modal-create-campaign opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center"
+    class="opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center"
+    v-bind:class="'modal-' + name"
   >
     <div
       class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"
@@ -11,14 +12,10 @@
     >
       <!-- Add margin if you want to see some of the overlay behind the modal-->
       <div class="modal-content py-4 text-left px-6">
-        <ModalHeader :title="'Create a funding campaign'" />
+        <ModalHeader :title="title" :modalIndex="name" />
 
         <!--Body-->
-        <input
-          type="text"
-          placeholder="Campaign name"
-          class="mt-1 pl-3 block w-full border-none bg-gray-100 h-11 rounded-xl shadow-lg hover:bg-blue-100 focus:bg-blue-100 focus:ring-0"
-        />
+        <ModalContent :type="content" />
 
         <!--Footer-->
         <div class="flex justify-end pt-2 mt-4">
@@ -41,11 +38,18 @@
 
 <script>
 import ModalHeader from "./ModalHeader";
+import ModalContent from "./ModalContent";
 
 export default {
   name: "Modal",
   components: {
     ModalHeader,
+    ModalContent,
+  },
+  props: {
+    name: null,
+    title: null,
+    content: null,
   },
   data() {
     return {

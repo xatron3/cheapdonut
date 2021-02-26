@@ -10,13 +10,23 @@
     </div>
   </a>
   <!-- End button -->
+
+  <Modal
+    :name="'create-campaign'"
+    :title="'Create a funding campaign'"
+    :content="'campaign'"
+  />
 </template>
 
 <script>
 import ModalHandler from "../lib/ModalHandler";
+import Modal from "./modal/Modal";
 
 export default {
   name: "CampaignModalButton",
+  components: {
+    Modal,
+  },
   data() {
     return {
       modalActive: false,

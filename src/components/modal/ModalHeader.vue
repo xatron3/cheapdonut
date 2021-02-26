@@ -19,10 +19,18 @@
 </template>
 
 <script>
+import ModalHandler from "../../lib/ModalHandler";
+
 export default {
   name: "ModalHeader",
   props: {
     title: null,
+    modalIndex: null,
+  },
+  methods: {
+    toggleModal() {
+      ModalHandler.toggleModal(this.$props.modalIndex);
+    },
   },
 };
 </script>
