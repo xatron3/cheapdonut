@@ -38,6 +38,7 @@ export default {
   mounted() {
     web3.eth.getAccounts().then((accounts) => {
       this.$store.commit("setAdress", accounts);
+      // this.startProject();
       this.getProjects();
     });
   },
@@ -82,10 +83,10 @@ export default {
           "testTitle",
           "testDes",
           10,
-          web3.utils.toWei("1000", "ether")
+          web3.utils.toWei("1", "ether")
         )
         .send({
-          from: this.account,
+          from: this.$store.state.accountAdress[0],
         })
         .then((res) => {
           console.log(res);
