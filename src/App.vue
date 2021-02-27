@@ -37,7 +37,7 @@ export default {
   },
   mounted() {
     web3.eth.getAccounts().then((accounts) => {
-      [this.account] = accounts;
+      this.$store.commit("setAdress", accounts);
       this.getProjects();
     });
   },
@@ -54,10 +54,13 @@ export default {
               .getDetails()
               .call()
               .then((projectData) => {
+                console.log(projectData);
+
                 var deadline = new Date(projectData.deadline * 1000);
                 var creationDate = new Date(projectData.creationDate * 1000);
 
                 var cleanData = {
+                  projectAddress: projectAddress,
                   title: projectData.projectTitle,
                   description: projectData.projectDesc,
                   projectStarterAdress: projectData.projectStarter,

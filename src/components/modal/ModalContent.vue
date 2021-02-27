@@ -17,16 +17,19 @@ export default {
     CampaignContent,
   },
   computed: {
-    currentProperties: function() {
-      var data;
+    currentProperties: function(props) {
+      var computedData;
 
       if (this.$props.type === "funding") {
-        data = { max: 1002 };
+        var maxAmount =
+          props.data.campaign.goalAmount - props.data.campaign.currentAmount;
+
+        computedData = { max: maxAmount, campaign: props.data.campaign };
       } else {
-        data = {};
+        computedData = {};
       }
 
-      return data;
+      return computedData;
     },
   },
   methods: {

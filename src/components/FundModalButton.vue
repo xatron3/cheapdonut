@@ -40,7 +40,7 @@ export default {
   methods: {
     toggleModal() {
       ModalHandler.toggleModal(
-        this.$props.index + "-" + this.$props.data.projectStarterAdress
+        this.$props.index + "-" + this.$props.data.projectAddress
       );
     },
   },

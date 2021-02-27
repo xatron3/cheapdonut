@@ -1,8 +1,6 @@
 var activeModal = false;
 
 function toggleModal(index) {
-  console.log(index);
-
   if (activeModal) activeModal = false;
   else activeModal = index;
 
@@ -16,7 +14,6 @@ function toggleModal(index) {
 function keyListenerModal(e) {
   if (e.keyCode === 27 && activeModal) {
     toggleModal(activeModal);
-    console.log(activeModal);
   }
 }
 

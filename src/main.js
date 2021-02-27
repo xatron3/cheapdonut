@@ -2,4 +2,9 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import "@/assets/css/main.css";
 
-createApp(App).mount("#app");
+// Stores
+import store from "./store/store.js";
+
+const app = createApp(App);
+app.use(store);
+app.mount("#app");

@@ -16,9 +16,6 @@
 
         <!--Body-->
         <ModalContent :type="content" :data="data" />
-
-        <!--Footer-->
-        <ModalFooter :type="content" :modalIndex="modalIndex" />
       </div>
     </div>
   </div>
@@ -27,30 +24,28 @@
 <script>
 import ModalHeader from "./ModalHeader";
 import ModalContent from "./ModalContent";
-import ModalFooter from "./ModalFooter";
 
 export default {
   name: "Modal",
   components: {
     ModalHeader,
     ModalContent,
-    ModalFooter,
   },
   props: {
     content: null,
     data: null,
   },
   computed: {
-    title: function() {
-      if (this.$props.content === "funding") {
-        return "Fund " + this.$props.data.campaign.title;
+    title: function(props) {
+      if (props.content === "funding") {
+        return "Fund " + props.data.campaign.title;
       } else {
         return "Not found";
       }
     },
     modalIndex: function() {
       if (this.$props.data.index === "funding") {
-        return "funding-" + this.$props.data.campaign.projectStarterAdress;
+        return "funding-" + this.$props.data.campaign.projectAddress;
       } else {
         return this.$props.data.index;
       }
@@ -60,9 +55,6 @@ export default {
     return {
       modalActive: false,
     };
-  },
-  mounted() {
-    console.log(this.$props.data);
   },
 };
 </script>
