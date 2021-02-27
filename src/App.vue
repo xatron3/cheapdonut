@@ -39,7 +39,6 @@ export default {
   mounted() {
     web3.eth.getAccounts().then((accounts) => {
       this.$store.commit("setAdress", accounts);
-      // this.startProject();
 
       var projectHandler = new ProjectHandler();
       projectHandler.getProjects();

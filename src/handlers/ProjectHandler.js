@@ -1,6 +1,7 @@
 // import web3 from "../lib/web3.js";
 import crowdFundingInstance from "../lib/CrowdFundingInstance.js";
 import projectInstance from "../lib/ProjectInstance.js";
+import Sorter from "../handlers/Sorter";
 import store from "../store/store";
 
 class ProjectHandler {
@@ -31,6 +32,8 @@ class ProjectHandler {
               };
 
               store.commit("addProject", cleanData);
+
+              Sorter.sortProjects("latest");
             });
         });
       })
