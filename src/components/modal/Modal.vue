@@ -22,8 +22,8 @@
 </template>
 
 <script>
-import ModalHeader from "./ModalHeader";
-import ModalContent from "./ModalContent";
+import ModalHeader from "./layout/ModalHeader";
+import ModalContent from "./layout/ModalContent";
 
 export default {
   name: "Modal",

@@ -10,8 +10,8 @@
 </template>
 
 <script>
-import Modal from "./modal/Modal";
-import ModalHandler from "../lib/ModalHandler";
+import Modal from "../Modal";
+import ModalHandler from "../../../handlers/ModalHandler";
 
 export default {
   name: "FundModalButton",

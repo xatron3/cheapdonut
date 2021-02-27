@@ -2,6 +2,7 @@
   <!-- component -->
   <div
     class="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-800 p-4 rounded-xl border w-full mb-8"
+    v-bind:class="{ 'border-gray-800': isOwner }"
   >
     <div class="flex justify-between">
       <div class="flex items-center">
@@ -25,7 +26,7 @@
         v-bind:class="progressClass()"
         v-bind:style="{ width: currentAmountPrecentage + '%' }"
       >
-        {{ data.currentAmount }}/{{ data.goalAmount }}
+        {{ data.currentAmount / 10 ** 18 }}/{{ data.goalAmount / 10 ** 18 }}
       </div>
     </div>
 
@@ -44,7 +45,7 @@
 <script>
 import moment from "moment";
 
-import FundModalButton from "./FundModalButton.vue";
+import FundModalButton from "./modal/buttons/FundModalButton";
 
 export default {
   name: "Campaign",
@@ -65,6 +66,11 @@ export default {
     currentAmountPrecentage: function() {
       return (
         (this.$props.data.currentAmount / this.$props.data.goalAmount) * 100
+      );
+    },
+    isOwner: function() {
+      return (
+        this.data.projectStarterAdress === this.$store.state.accountAdress[0]
       );
     },
   },

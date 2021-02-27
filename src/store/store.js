@@ -5,11 +5,15 @@ const store = createStore({
   state() {
     return {
       accountAdress: 0,
+      projects: [],
     };
   },
   mutations: {
     setAdress(state, adress) {
       state.accountAdress = adress;
+    },
+    addProject(state, project) {
+      state.projects.push(project);
     },
   },
 });

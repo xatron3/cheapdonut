@@ -15,8 +15,8 @@
 </template>
 
 <script>
-import ModalHandler from "../lib/ModalHandler";
-import Modal from "./modal/Modal";
+import ModalHandler from "../../../handlers/ModalHandler";
+import Modal from "../Modal";
 
 export default {
   name: "CampaignModalButton",

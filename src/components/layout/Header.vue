@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import CampaignModalButton from "../CampaignModalButton";
+import CampaignModalButton from "../modal/buttons/CampaignModalButton";
 
 export default {
   name: "Header",

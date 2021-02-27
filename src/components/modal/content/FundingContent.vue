@@ -49,7 +49,7 @@ export default {
         .contribute()
         .send({
           from: this.$store.state.accountAdress[0],
-          value: web3.utils.toWei(this.tipAmount.toString(), "ether"),
+          value: web3.utils.toWei("0.2", "ether"),
         })
         .then((res) => {
           console.log(res);

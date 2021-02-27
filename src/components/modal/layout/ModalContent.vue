@@ -3,8 +3,8 @@
 </template>
 
 <script>
-import FundingContent from "./content/FundingContent";
-import CampaignContent from "./content/CampaignContent";
+import FundingContent from "../content/FundingContent";
+import CampaignContent from "../content/CampaignContent";
 
 export default {
   name: "ModalContent",

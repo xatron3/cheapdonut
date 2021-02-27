@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import ModalHandler from "../../lib/ModalHandler";
+import ModalHandler from "../../../handlers/ModalHandler";
 
 export default {
   name: "ModalHeader",
