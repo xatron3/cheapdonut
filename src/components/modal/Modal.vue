@@ -1,7 +1,7 @@
 <template>
   <div
     class="opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center"
-    v-bind:class="'modal-' + name"
+    v-bind:class="modalIndex"
   >
     <div
       class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"
@@ -12,25 +12,13 @@
     >
       <!-- Add margin if you want to see some of the overlay behind the modal-->
       <div class="modal-content py-4 text-left px-6">
-        <ModalHeader :title="title" :modalIndex="name" />
+        <ModalHeader :title="title" :modalIndex="modalIndex" />
 
         <!--Body-->
-        <ModalContent :type="content" />
+        <ModalContent :type="content" :data="data" />
 
         <!--Footer-->
-        <div class="flex justify-end pt-2 mt-4">
-          <button
-            class="px-4 bg-transparent p-3 rounded-lg text-indigo-500 hover:bg-gray-100 hover:text-indigo-400 mr-2"
-          >
-            Post
-          </button>
-          <button
-            class="modal-close px-4 bg-indigo-500 p-3 rounded-lg text-white hover:bg-indigo-400"
-            v-on:click="toggleModal"
-          >
-            Close
-          </button>
-        </div>
+        <ModalFooter :type="content" :modalIndex="modalIndex" />
       </div>
     </div>
   </div>
@@ -39,23 +27,42 @@
 <script>
 import ModalHeader from "./ModalHeader";
 import ModalContent from "./ModalContent";
+import ModalFooter from "./ModalFooter";
 
 export default {
   name: "Modal",
   components: {
     ModalHeader,
     ModalContent,
+    ModalFooter,
   },
   props: {
-    name: null,
-    title: null,
     content: null,
+    data: null,
+  },
+  computed: {
+    title: function() {
+      if (this.$props.content === "funding") {
+        return "Fund " + this.$props.data.campaign.title;
+      } else {
+        return "Not found";
+      }
+    },
+    modalIndex: function() {
+      if (this.$props.data.index === "funding") {
+        return "funding-" + this.$props.data.campaign.projectStarterAdress;
+      } else {
+        return this.$props.data.index;
+      }
+    },
   },
   data() {
     return {
       modalActive: false,
     };
   },
-  mounted() {},
+  mounted() {
+    console.log(this.$props.data);
+  },
 };
 </script>

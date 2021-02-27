@@ -1,5 +1,5 @@
 <template>
-  <component v-bind:is="getContentComponent(type)"></component>
+  <component :is="getContentComponent()" :data="currentProperties"></component>
 </template>
 
 <script>
@@ -10,19 +10,33 @@ export default {
   name: "ModalContent",
   props: {
     type: null,
+    data: null,
   },
   components: {
     FundingContent,
     CampaignContent,
   },
+  computed: {
+    currentProperties: function() {
+      var data;
+
+      if (this.$props.type === "funding") {
+        data = { max: 1002 };
+      } else {
+        data = {};
+      }
+
+      return data;
+    },
+  },
   methods: {
-    getContentComponent(type) {
-      const selectButtonByType = {
+    getContentComponent() {
+      const contentComponent = {
         funding: <FundingContent />,
         campaign: <CampaignContent />,
       };
 
-      return selectButtonByType[type];
+      return contentComponent[this.$props.type];
     },
   },
 };

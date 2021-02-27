@@ -11,11 +11,7 @@
   </a>
   <!-- End button -->
 
-  <Modal
-    :name="'create-campaign'"
-    :title="'Create a campaign to beg for cTH'"
-    :content="'campaign'"
-  />
+  <Modal content="campaign" :data="computedData" />
 </template>
 
 <script>
@@ -27,6 +23,18 @@ export default {
   components: {
     Modal,
   },
+  props: {
+    index: null,
+  },
+  computed: {
+    computedData: function(props) {
+      var newData = {};
+
+      newData["index"] = props.index;
+
+      return newData;
+    },
+  },
   data() {
     return {
       modalActive: false,
@@ -34,11 +42,8 @@ export default {
   },
   methods: {
     toggleModal() {
-      ModalHandler.toggleModal("create-campaign");
+      ModalHandler.toggleModal(this.$props.index);
     },
-  },
-  mounted() {
-    document.addEventListener("keyup", this.keyListener);
   },
 };
 </script>

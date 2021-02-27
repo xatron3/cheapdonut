@@ -1,6 +1,6 @@
 <template>
   <footer class="p-5 text-sm text-gray-600 text-center w-full">
-    <div class="inline-flex items-center">
+    <div class="inline-flex items-center text-shadow-lg text-white">
       <svg
         aria-hidden="true"
         focusable="false"
@@ -18,9 +18,17 @@
       </svg>
       <span
         >Made by
-        <a href="https://github.com/xatron3" target="_new" class="text-teal-1000 font-semibold">xatron</a>
+        <a
+          href="https://github.com/xatron3"
+          target="_new"
+          class="text-teal-1000 font-semibold"
+          >xatron</a
+        >
         &
-        <a href="https://github.com/kanedaaaa" target="_new" class="text-teal-1000 font-semibold"
+        <a
+          href="https://github.com/kanedaaaa"
+          target="_new"
+          class="text-teal-1000 font-semibold"
           >kaneda</a
         ></span
       >

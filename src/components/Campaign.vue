@@ -19,30 +19,25 @@
       {{ data.description }}
     </p>
 
-    <div class="shadow w-full bg-grey-light mt-2">
+    <div class="shadow w-full bg-grey-light my-2">
       <div
-        class="text-xs leading-none py-1 text-center text-white"
+        class="text-xs leading-none py-1 text-center text-black"
         v-bind:class="progressClass()"
         v-bind:style="{ width: currentAmountPrecentage + '%' }"
       >
-        55%
+        {{ data.currentAmount }}/{{ data.goalAmount }}
       </div>
     </div>
-    Goal: {{ data.currentAmount }}/{{ data.goalAmount }} ({{
-      currentAmountPrecentage
-    }}%)
 
-    <!-- TODO: Slider -->
+    <!-- <div
+      class="border-gray-200 dark:border-gray-600 border border-b-0 my-1"
+    ></div> -->
 
-    <p class="text-gray-500 dark:text-gray-400 text-sm py-1 my-0.5">
+    <p class="text-gray-500 dark:text-gray-400 text-sm py-1 my-0.5 float-left">
       Started at: {{ creationDate }}
     </p>
 
-    <div
-      class="border-gray-200 dark:border-gray-600 border border-b-0 my-1"
-    ></div>
-
-    <FundModalButton :campaignIndex="index" :campaignTitle="data.title" />
+    <FundModalButton :data="data" index="funding" />
   </div>
 </template>
 

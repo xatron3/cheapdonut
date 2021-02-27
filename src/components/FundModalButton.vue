@@ -6,11 +6,7 @@
     Donut
   </button>
 
-  <Modal
-    :name="'funding-campaign-' + campaignIndex"
-    :content="'funding'"
-    :title="'Fund ' + campaignTitle"
-  />
+  <Modal :content="'funding'" :data="comuptedData" />
 </template>
 
 <script>
@@ -20,11 +16,21 @@ import ModalHandler from "../lib/ModalHandler";
 export default {
   name: "FundModalButton",
   props: {
-    campaignIndex: null,
-    campaignTitle: null,
+    data: null,
+    index: null,
   },
   components: {
     Modal,
+  },
+  computed: {
+    comuptedData: function(props) {
+      var newData = {};
+
+      newData["index"] = props.index;
+      newData["campaign"] = props.data;
+
+      return newData;
+    },
   },
   data() {
     return {
@@ -33,7 +39,9 @@ export default {
   },
   methods: {
     toggleModal() {
-      ModalHandler.toggleModal("funding-campaign-" + this.$props.campaignIndex);
+      ModalHandler.toggleModal(
+        this.$props.index + "-" + this.$props.data.projectStarterAdress
+      );
     },
   },
 };
