@@ -33,11 +33,6 @@
 
     <CampaignContribute :data="data" />
 
-    <div
-      class="border-gray-200 dark:border-gray-600 border border-b-0 my-1 w-full"
-    ></div>
-
-    <h1>Contributors</h1>
   </div>
 </template>
 

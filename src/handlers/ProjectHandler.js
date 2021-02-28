@@ -41,11 +41,11 @@ class ProjectHandler {
       .catch(console.log);
   }
 
-  startProject() {
+  startProject(title, desc) {
     crowdFundingInstance.methods
       .startProject(
-        "This is the newest (xatroN)",
-        "Test description",
+        title,
+        desc,
         10,
         web3.utils.toWei("2", "ether")
       )
@@ -59,4 +59,4 @@ class ProjectHandler {
 }
 
 export default ProjectHandler;
-// module.exports.startProject = startProject;
+

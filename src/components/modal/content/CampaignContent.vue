@@ -4,22 +4,48 @@
     <input
       type="text"
       placeholder="Campaign name"
-      class="mt-1 pl-3 block w-full border-none bg-gray-100 h-11 rounded-xl shadow-lg hover:bg-blue-100 focus:bg-blue-100 focus:ring-0"
+      v-bind="projectTitle"
+      class="mt-1 pl-3 block w-full border-none bg-gray-100 h-11 rounded-xl shadow-lg hover:bg-pink-200 focus:bg-pink-200 focus:ring-0"
     />
 
-    <textarea></textarea>
+    <input
+      type="text"
+      v-bind="projectDesc"
+      placeholder="why do you want free mone"
+      class="mt-3 flex-1 bg-gray-100 border-none rounded-lg px-4 py-2 sm:px-3 sm:py-4 leading-relaxed focus:ring-0 hover:bg-pink-200 focus:bg-pink-200"
+    />
 
     <input
       type="number"
+  
       placeholder="Ex. 10 CTH"
-      class="mt-1 pl-3 block w-full border-none bg-gray-100 h-11 rounded-xl shadow-lg hover:bg-blue-100 focus:bg-blue-100 focus:ring-0"
+      class="mt-1 pl-3 block w-full border-none bg-gray-100 h-11 rounded-xl shadow-lg hover:bg-pink-200 focus:bg-pink-200 focus:ring-0"
     />
+
+    <button @click="startProject" class="float-right self-end mt-2 pl-3 focus:outline-none text-white text-sm py-2.5 px-5 rounded-md bg-green-500 hover:bg-pink-600 hover:shadow-lg">
+      Start Campaign
+    </button>
   </div>
 </template>
 
 <script>
+
+//import "../../../handlers/ProjectHandler";
+import ProjectHandler from '../../../handlers/ProjectHandler';
+
 export default {
   name: "CampaignContent",
+      data() {
+        return {
+          projectTitle: null,
+          projectDesc: null,  
+        }
+      },
+      methods: {
+    startProject(){
+        ProjectHandler.startProject(this.$data.projectTitle, this.$data.projectDesc)
+      }
+    }
 };
 </script>
 <style scoped>
