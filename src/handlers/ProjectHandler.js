@@ -3,6 +3,7 @@ import crowdFundingInstance from "../lib/CrowdFundingInstance.js";
 import projectInstance from "../lib/ProjectInstance.js";
 import Sorter from "../handlers/Sorter";
 import store from "../store/store";
+import web3 from "../lib/web3";
 
 class ProjectHandler {
   getProjects() {
@@ -40,21 +41,21 @@ class ProjectHandler {
       .catch(console.log);
   }
 
-  // function startProject() {
-  //   crowdFundingInstance.methods
-  //     .startProject(
-  //       "This is the newest (xatroN)",
-  //       "Test description",
-  //       10,
-  //       web3.utils.toWei("2", "ether")
-  //     )
-  //     .send({
-  //       from: this.$store.state.accountAdress[0],
-  //     })
-  //     .then((res) => {
-  //       console.log(res);
-  //     });
-  // }
+  startProject() {
+    crowdFundingInstance.methods
+      .startProject(
+        "This is the newest (xatroN)",
+        "Test description",
+        10,
+        web3.utils.toWei("2", "ether")
+      )
+      .send({
+        from: store.state.accountAdress[0],
+      })
+      .then((res) => {
+        console.log(res);
+      });
+  }
 }
 
 export default ProjectHandler;

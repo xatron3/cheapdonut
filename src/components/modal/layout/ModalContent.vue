@@ -22,7 +22,10 @@ export default {
 
       if (this.$props.type === "funding") {
         var maxAmount =
-          props.data.campaign.goalAmount - props.data.campaign.currentAmount;
+          props.data.campaign.goalAmount / 10 ** 18 -
+          props.data.campaign.currentAmount / 10 ** 18;
+
+        console.log(maxAmount);
 
         computedData = { max: maxAmount, campaign: props.data.campaign };
       } else {

@@ -26,19 +26,32 @@
         v-bind:class="progressClass()"
         v-bind:style="{ width: currentAmountPrecentage + '%' }"
       >
-        {{ data.currentAmount / 10 ** 18 }}/{{ data.goalAmount / 10 ** 18 }}
+        <span>({{ currentAmountPrecentage }}%)</span>
       </div>
     </div>
+    <div class=" w-full">
+      Currently Funded:
+      <span class="dark:text-gray-400 font-bold text-sm py-1 my-0.5"
+        >{{ data.currentAmount / 10 ** 18 }}/{{
+          data.goalAmount / 10 ** 18
+        }}
+        CTH</span
+      >
+    </div>
 
-    <!-- <div
+    <div
       class="border-gray-200 dark:border-gray-600 border border-b-0 my-1"
-    ></div> -->
+    ></div>
 
-    <p class="text-gray-500 dark:text-gray-400 text-sm py-1 my-0.5 float-left">
-      Started at: {{ creationDate }}
-    </p>
+    <div class="w-full">
+      <p
+        class="text-gray-500 dark:text-gray-400 text-sm py-1 my-0.5 float-left"
+      >
+        Started at: {{ creationDate }}
+      </p>
 
-    <FundModalButton :data="data" index="funding" />
+      <FundModalButton :data="data" index="funding" />
+    </div>
   </div>
 </template>
 

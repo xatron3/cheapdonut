@@ -2,7 +2,6 @@
   <Header />
   <div class="max-w-4xl m-auto p-10">
     <CampaignSorter />
-
     <div
       v-for="(project, index) in this.$store.state.projects"
       :key="index"
@@ -42,6 +41,7 @@ export default {
 
       var projectHandler = new ProjectHandler();
       projectHandler.getProjects();
+      // projectHandler.startProject();
     });
   },
   methods: {},
