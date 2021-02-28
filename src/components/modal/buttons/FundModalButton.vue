@@ -3,7 +3,7 @@
     class="modal-close px-4 bg-gray-500 -500 p-2 rounded-lg text-white hover:bg-pink-500 float-right"
     v-on:click="toggleModal()"
   >
-    Donut
+    Contribute
   </button>
 
   <Modal :content="'funding'" :data="comuptedData" />
@@ -17,10 +17,10 @@ export default {
   name: "FundModalButton",
   props: {
     data: null,
-    index: null,
+    index: null
   },
   components: {
-    Modal,
+    Modal
   },
   computed: {
     comuptedData: function(props) {
@@ -30,11 +30,11 @@ export default {
       newData["campaign"] = props.data;
 
       return newData;
-    },
+    }
   },
   data() {
     return {
-      modalActive: false,
+      modalActive: false
     };
   },
   methods: {
@@ -42,7 +42,7 @@ export default {
       ModalHandler.toggleModal(
         this.$props.index + "-" + this.$props.data.projectAddress
       );
-    },
-  },
+    }
+  }
 };
 </script>

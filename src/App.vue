@@ -1,6 +1,6 @@
 <template>
   <Header />
-  <div class="max-w-4xl m-auto p-10">
+  <div class="max-w-5xl m-auto p-10">
     <CampaignSorter />
     <div
       v-for="(project, index) in this.$store.state.projects"
@@ -28,15 +28,15 @@ export default {
     Footer,
     Header,
     Campaign,
-    CampaignSorter,
+    CampaignSorter
   },
   data() {
     return {
-      newProject: {},
+      newProject: {}
     };
   },
   mounted() {
-    web3.eth.getAccounts().then((accounts) => {
+    web3.eth.getAccounts().then(accounts => {
       this.$store.commit("setAdress", accounts);
 
       var projectHandler = new ProjectHandler();
@@ -44,6 +44,6 @@ export default {
       // projectHandler.startProject();
     });
   },
-  methods: {},
+  methods: {}
 };
 </script>
