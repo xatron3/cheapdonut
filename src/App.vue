@@ -16,7 +16,7 @@
 <script>
 import Footer from "./components/layout/Footer.vue";
 import Header from "./components/layout/Header.vue";
-import Campaign from "./components/Campaign.vue";
+import Campaign from "./components/campaign/Campaign.vue";
 import CampaignSorter from "./components/general/CampaignSorter.vue";
 
 import web3 from "./lib/web3";
@@ -28,15 +28,15 @@ export default {
     Footer,
     Header,
     Campaign,
-    CampaignSorter
+    CampaignSorter,
   },
   data() {
     return {
-      newProject: {}
+      newProject: {},
     };
   },
   mounted() {
-    web3.eth.getAccounts().then(accounts => {
+    web3.eth.getAccounts().then((accounts) => {
       this.$store.commit("setAdress", accounts);
 
       var projectHandler = new ProjectHandler();
@@ -44,6 +44,6 @@ export default {
       // projectHandler.startProject();
     });
   },
-  methods: {}
+  methods: {},
 };
 </script>

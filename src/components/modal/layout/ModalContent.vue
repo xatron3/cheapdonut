@@ -3,7 +3,6 @@
 </template>
 
 <script>
-import FundingContent from "../content/FundingContent";
 import CampaignContent from "../content/CampaignContent";
 
 export default {
@@ -13,7 +12,6 @@ export default {
     data: null,
   },
   components: {
-    FundingContent,
     CampaignContent,
   },
   computed: {
@@ -38,7 +36,6 @@ export default {
   methods: {
     getContentComponent() {
       const contentComponent = {
-        funding: <FundingContent />,
         campaign: <CampaignContent />,
       };
 
