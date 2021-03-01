@@ -1,69 +1,125 @@
 <template>
-  <!--Title-->
   <div class="flex justify-between items-center flex-wrap pb-3">
-    <input
-      type="text"
-      placeholder="Campaign name"
-      v-bind="projectTitle"
-      class="mt-1 pl-3 block w-full border-none bg-gray-100 h-11 rounded-xl shadow-lg hover:bg-pink-200 focus:bg-pink-200 focus:ring-0"
+    <AlertMessage
+      :type="this.alert.type"
+      :message="this.alert.message"
+      v-if="this.alert.message"
     />
 
-    <input
-      type="text"
-      v-bind="projectDesc"
-      placeholder="why do you want free mone"
-      class="mt-3 flex-1 bg-gray-100 border-none rounded-lg px-4 py-2 sm:px-3 sm:py-4 leading-relaxed focus:ring-0 hover:bg-pink-200 focus:bg-pink-200"
-    />
+    <div class="mb-3 w-full">
+      <div class="uppercase font-bold text-sm">Campaign Name</div>
+      <input
+        type="text"
+        placeholder="Campaign name"
+        v-model="projectTitle"
+        class="mt-1 pl-3 block w-full border-none bg-gray-100 h-11 rounded-xl shadow-lg hover:bg-pink-200 focus:bg-pink-200 focus:ring-0"
+      />
+    </div>
 
-    <input
-      type="number"
-  
-      placeholder="Ex. 10 CTH"
-      class="mt-1 pl-3 block w-full border-none bg-gray-100 h-11 rounded-xl shadow-lg hover:bg-pink-200 focus:bg-pink-200 focus:ring-0"
-    />
+    <div class="mb-3 w-full">
+      <div class="uppercase font-bold text-sm">Why should people fund you?</div>
 
-    <button @click="startProject" class="float-right self-end mt-2 pl-3 focus:outline-none text-white text-sm py-2.5 px-5 rounded-md bg-green-500 hover:bg-pink-600 hover:shadow-lg">
+      <textarea
+        class="resize-none mt-1 pl-3 pt-2 h-36 block w-full border-none bg-gray-100 rounded-xl shadow-lg hover:bg-pink-200 focus:bg-pink-200 focus:ring-0"
+        v-model="projectDesc"
+      ></textarea>
+    </div>
+
+    <div class="mb-3 w-full">
+      <div class="uppercase font-bold text-sm">Duration (in days)</div>
+      <input
+        type="number"
+        v-model="duration"
+        placeholder="Days"
+        class="mt-1 pl-3 block w-full border-none bg-gray-100 h-11 rounded-xl shadow-lg hover:bg-pink-200 focus:bg-pink-200 focus:ring-0"
+      />
+    </div>
+
+    <div class="mb-3 w-full">
+      <div class="uppercase font-bold text-sm">
+        Amount you need (MIN 1 CTH)
+      </div>
+      <input
+        type="number"
+        v-model="projectAmount"
+        placeholder="Ex. 10 CTH"
+        class="mt-1 pl-3 block w-full border-none bg-gray-100 h-11 rounded-xl shadow-lg hover:bg-pink-200 focus:bg-pink-200 focus:ring-0"
+      />
+    </div>
+
+    <button
+      v-on:click="startProject"
+      class="float-right self-end mt-2 pl-3 focus:outline-none text-white text-sm py-2.5 px-5 rounded-md bg-green-500 hover:bg-pink-600 hover:shadow-lg"
+    >
       Start Campaign
     </button>
   </div>
 </template>
 
 <script>
-
-//import "../../../handlers/ProjectHandler";
-import ProjectHandler from '../../../handlers/ProjectHandler';
+import ProjectHandler from "../../../handlers/ProjectHandler";
+import AlertMessage from "../../general/AlertMessage";
 
 export default {
   name: "CampaignContent",
-      data() {
-        return {
-          projectTitle: null,
-          projectDesc: null,  
-        }
+  components: {
+    AlertMessage,
+  },
+  data() {
+    return {
+      projectTitle: "",
+      projectDesc: "",
+      projectAmount: 0,
+      duration: 0,
+      alert: {
+        message: null,
+        type: "info",
       },
-      methods: {
-    startProject(){
-        ProjectHandler.startProject(this.$data.projectTitle, this.$data.projectDesc)
+    };
+  },
+  methods: {
+    startProject() {
+      var data = {
+        title: this.projectTitle,
+        desc: this.projectDesc,
+        amount: this.projectAmount,
+        duration: this.duration,
+      };
+
+      var validation = this.validateData(data);
+
+      if (validation === true) {
+        var porjectHandler = new ProjectHandler();
+
+        porjectHandler.startProject(data);
+        this.clearData();
       }
-    }
+    },
+    validateData(data) {
+      if (data.title == "") {
+        this.alert.message = "The title can't be empty";
+        this.alert.type = "error";
+      } else if (data.desc == "") {
+        this.alert.message = "The description can't be empty";
+        this.alert.type = "error";
+      } else if (data.duration <= 0) {
+        this.alert.message = "Your campaign must run atleast one day";
+        this.alert.type = "error";
+      } else if (data.amount <= 0.99) {
+        this.alert.message = "Your campaign must try to raise atleast 1 CTH";
+        this.alert.type = "error";
+      } else {
+        this.alert.message = false;
+
+        return true;
+      }
+    },
+    clearData() {
+      this.projectTitle = "";
+      this.projectDesc = "";
+      this.projectAmount = 0;
+      this.duration = 0;
+    },
+  },
 };
 </script>
-<style scoped>
-/* RED BORDER ON INVALID INPUT */
-.check input:invalid {
-  border-color: red;
-}
-
-/* FLOATING LABEL */
-.label-floating input:not(:placeholder-shown),
-.label-floating textarea:not(:placeholder-shown) {
-  padding-top: 1.4rem;
-}
-.label-floating input:not(:placeholder-shown) ~ label,
-.label-floating textarea:not(:placeholder-shown) ~ label {
-  font-size: 0.8rem;
-  transition: all 0.2s ease-in-out;
-  color: #1f9d55;
-  opacity: 1;
-}
-</style>

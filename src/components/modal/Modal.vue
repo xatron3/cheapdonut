@@ -1,7 +1,6 @@
 <template>
   <div
-    class="opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center"
-    v-bind:class="modalIndex"
+    class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center"
   >
     <div
       class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"
@@ -12,10 +11,10 @@
     >
       <!-- Add margin if you want to see some of the overlay behind the modal-->
       <div class="modal-content py-4 text-left px-6">
-        <ModalHeader :title="title" :modalIndex="modalIndex" />
+        <ModalHeader />
 
         <!--Body-->
-        <ModalContent :type="content" :data="data" />
+        <ModalContent />
       </div>
     </div>
   </div>
@@ -30,31 +29,6 @@ export default {
   components: {
     ModalHeader,
     ModalContent,
-  },
-  props: {
-    content: null,
-    data: null,
-  },
-  computed: {
-    title: function(props) {
-      if (props.content === "funding") {
-        return "Fund " + props.data.campaign.title;
-      } else {
-        return "Not found";
-      }
-    },
-    modalIndex: function() {
-      if (this.$props.data.index === "funding") {
-        return "funding-" + this.$props.data.campaign.projectAddress;
-      } else {
-        return this.$props.data.index;
-      }
-    },
-  },
-  data() {
-    return {
-      modalActive: false,
-    };
   },
 };
 </script>

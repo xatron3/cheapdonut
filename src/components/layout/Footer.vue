@@ -34,10 +34,16 @@
       >
     </div>
   </footer>
+
+  <Modal />
 </template>
 
 <script>
+import Modal from "../modal/Modal";
 export default {
   name: "Footer",
+  components: {
+    Modal,
+  },
 };
 </script>

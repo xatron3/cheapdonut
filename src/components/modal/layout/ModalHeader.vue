@@ -1,7 +1,7 @@
 <template>
   <!--Title-->
   <div class="flex justify-between items-center pb-3">
-    <p class="text-2xl font-bold">{{ title }}</p>
+    <p class="text-2xl font-bold">{{ this.$store.state.modalData.title }}</p>
     <div class="modal-close cursor-pointer z-50" v-on:click="toggleModal">
       <svg
         class="fill-current text-black"
@@ -25,11 +25,10 @@ export default {
   name: "ModalHeader",
   props: {
     title: null,
-    modalIndex: null,
   },
   methods: {
     toggleModal() {
-      ModalHandler.toggleModal(this.$props.modalIndex);
+      ModalHandler.toggleModal();
     },
   },
 };

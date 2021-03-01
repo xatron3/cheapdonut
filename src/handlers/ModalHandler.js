@@ -1,22 +1,25 @@
-var activeModal = false;
+import store from "../store/store";
 
-function toggleModal(index) {
-  if (activeModal) activeModal = false;
-  else activeModal = index;
+class ModalHandler {
+  constructor(title = "Default", content = "default") {
+    var data = {
+      title: title,
+      content: content,
+    };
 
-  const body = document.querySelector("body");
-  const modal = document.querySelector("." + index);
-  modal.classList.toggle("opacity-0");
-  modal.classList.toggle("pointer-events-none");
-  body.classList.toggle("modal-active");
-}
+    store.commit("setModalData", data);
+  }
 
-function keyListenerModal(e) {
-  if (e.keyCode === 27 && activeModal) {
-    toggleModal(activeModal);
+  static toggleModal() {
+    if (store.state.modalData.active) store.commit("setModalActive", false);
+    else store.commit("setModalActive", true);
+
+    const body = document.querySelector("body");
+    const modal = document.querySelector(".modal");
+    modal.classList.toggle("opacity-0");
+    modal.classList.toggle("pointer-events-none");
+    body.classList.toggle("modal-active");
   }
 }
 
-document.addEventListener("keyup", keyListenerModal);
-
-module.exports.toggleModal = toggleModal;
+export default ModalHandler;

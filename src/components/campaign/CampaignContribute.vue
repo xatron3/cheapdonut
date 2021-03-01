@@ -9,7 +9,7 @@
       mr-1 md:mr-2 mb-2 px-2 md:px-4 py-1 
       opacity-90 hover:opacity-100"
       >
-        {{ daysLeft }} days left
+        {{ daysLeft }} left
       </span>
     </div>
     <div class="shadow w-full bg-grey-light my-2">
@@ -74,6 +74,7 @@ export default {
       return maxAmount;
     },
     daysLeft: function() {
+      var timeLeft;
       var today = new Date();
       var endDate = new Date(this.$props.data.endDate);
 
@@ -85,7 +86,15 @@ export default {
         Difference_In_Time / (1000 * 3600 * 24)
       );
 
-      return Difference_In_Days;
+      if (Difference_In_Days < 1) {
+        // Seconds
+        timeLeft = this.secondsToHm(Difference_In_Time / 1000);
+      } else {
+        // Days
+        timeLeft = Difference_In_Days + " days";
+      }
+
+      return timeLeft;
     },
     currentAmountPrecentage: function() {
       return (
@@ -94,6 +103,15 @@ export default {
     },
   },
   methods: {
+    secondsToHm(d) {
+      d = Number(d);
+      var h = Math.floor(d / 3600);
+      var m = Math.floor((d % 3600) / 60);
+
+      var hDisplay = h > 0 ? h + (h == 1 ? "h, " : "h, ") : "";
+      var mDisplay = m > 0 ? m + (m == 1 ? "m" : "m") : "";
+      return hDisplay + mDisplay;
+    },
     fundProject() {
       const projectContract = projectInstance(this.$props.data.projectAddress);
 

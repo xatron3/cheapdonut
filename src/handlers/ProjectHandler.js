@@ -21,6 +21,8 @@ class ProjectHandler {
               var deadline = new Date(projectData.deadline * 1000);
               var creationDate = new Date(projectData.creationDate * 1000);
 
+              console.log(projectData);
+
               var cleanData = {
                 projectAddress: projectAddress,
                 title: projectData.projectTitle,
@@ -41,13 +43,13 @@ class ProjectHandler {
       .catch(console.log);
   }
 
-  startProject(title, desc) {
+  startProject(data) {
     crowdFundingInstance.methods
       .startProject(
-        title,
-        desc,
-        10,
-        web3.utils.toWei("2", "ether")
+        data.title,
+        data.desc,
+        parseInt(data.duration),
+        web3.utils.toWei(data.amount, "ether")
       )
       .send({
         from: store.state.accountAdress[0],
@@ -59,4 +61,3 @@ class ProjectHandler {
 }
 
 export default ProjectHandler;
-

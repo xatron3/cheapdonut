@@ -10,30 +10,14 @@
     </div>
   </a>
   <!-- End button -->
-
-  <Modal content="campaign" :data="computedData" />
 </template>
 
 <script>
 import ModalHandler from "../../../handlers/ModalHandler";
-import Modal from "../Modal";
 
 export default {
-  name: "CampaignModalButton",
-  components: {
-    Modal,
-  },
   props: {
     index: null,
-  },
-  computed: {
-    computedData: function(props) {
-      var newData = {};
-
-      newData["index"] = props.index;
-
-      return newData;
-    },
   },
   data() {
     return {
@@ -42,7 +26,9 @@ export default {
   },
   methods: {
     toggleModal() {
-      ModalHandler.toggleModal(this.$props.index);
+      new ModalHandler("Create Campaign", "campaign");
+
+      ModalHandler.toggleModal();
     },
   },
 };
